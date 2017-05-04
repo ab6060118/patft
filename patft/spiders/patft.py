@@ -73,8 +73,8 @@ class Patft(scrapy.Spider):
                 del reference['Other References'][0]
             
         Current_US_Class =  response.xpath('//b[text()="Current International Class: "]/../following-sibling::td/text()') or 'None'
-            if Current_US_Class != 'None':
-                Current_US_Class = Current_US_Class.extract_first().replace('&nbsp', ' ')
+        if Current_US_Class != 'None':
+            Current_US_Class = Current_US_Class.extract_first().replace('&nbsp', ' ')
         yield self.DB.write({
                 'United States Patent': response.xpath('//b[text()="United States Patent "]/../following-sibling::td/b/text()').extract_first(),
                 'Date': response.xpath('//table[2]//tr[2]/td[2]/b/text()').extract_first().strip(),
