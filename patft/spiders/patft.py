@@ -72,11 +72,14 @@ class Patft(scrapy.Spider):
                 reference['Other References'] = re.sub(r'(<[/]*align>)|(<a.*/a>)|(<[/]*b>)|(<[/]*i>)', '', docs).split('<br>')
                 del reference['Other References'][0]
             
+        Current_US_Class =  response.xpath('//b[text()="Current International Class: "]/../following-sibling::td/text()') or 'None'
+            if Current_US_Class != 'None':
+                Current_US_Class = Current_US_Class.extract_first().replace('&nbsp', ' ')
         yield self.DB.write({
                 'United States Patent': response.xpath('//b[text()="United States Patent "]/../following-sibling::td/b/text()').extract_first(),
                 'Date': response.xpath('//table[2]//tr[2]/td[2]/b/text()').extract_first().strip(),
                 'Current U.S. Class': response.xpath('//b[text()="Current U.S. Class:"]/../following-sibling::td/b/text()').extract_first() + response.xpath('//b[text()="Current U.S. Class:"]/../following-sibling::td/text()').extract_first(),
-                'Current International Class': response.xpath('//b[text()="Current International Class: "]/../following-sibling::td/text()').extract_first().replace('&nbsp', ' ') or 'None',
+                'Current International Class': Current_US_Class,
                 'Related U.S. Patent Documents': related_us,
                 'References Cited': reference,
                 })
