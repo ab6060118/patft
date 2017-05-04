@@ -38,29 +38,30 @@ class DB():
             cursor.execute('INSERT INTO Related_US_Patent_Documents (United_States_Patent, Application_Number, Filing_Date) VALUES ' + data)
             self.db.commit()
 
-        if post['References Cited']['U.S. Patent Documents']:
-            data = ''
-            for item in post['References Cited']['U.S. Patent Documents']:
-                data = ''.join([data, '("' + post['United States Patent'] + '", "' + item['first'] + '", "' + item['second'] + '", "' + item['third'] + '")'])
-            data = data.replace(')(', '), (')
+        if post['References Cited'] != 'None':
+            if post['References Cited']['U.S. Patent Documents']:
+                data = ''
+                for item in post['References Cited']['U.S. Patent Documents']:
+                    data = ''.join([data, '("' + post['United States Patent'] + '", "' + item['first'] + '", "' + item['second'] + '", "' + item['third'] + '")'])
+                data = data.replace(')(', '), (')
 
-            cursor.execute('INSERT INTO US_Patent_Documents (United_States_Patent, first, second, third) VALUES ' + data)
-            self.db.commit()
+                cursor.execute('INSERT INTO US_Patent_Documents (United_States_Patent, first, second, third) VALUES ' + data)
+                self.db.commit()
 
-        if post['References Cited']['Foreign Patent Documents']:
-            data = ''
-            for item in post['References Cited']['Foreign Patent Documents']:
-                data = ''.join([data, '("' + post['United States Patent'] + '", "' + item['first'] + '", "' + item['second'] + '", "' + item['third'] + '")'])
-            data = data.replace(')(', '), (')
+            if post['References Cited']['Foreign Patent Documents']:
+                data = ''
+                for item in post['References Cited']['Foreign Patent Documents']:
+                    data = ''.join([data, '("' + post['United States Patent'] + '", "' + item['first'] + '", "' + item['second'] + '", "' + item['third'] + '")'])
+                data = data.replace(')(', '), (')
 
-            cursor.execute('INSERT INTO Foreign_Patent_Documents (United_States_Patent, first, second, third) VALUES ' + data)
-            self.db.commit()
+                cursor.execute('INSERT INTO Foreign_Patent_Documents (United_States_Patent, first, second, third) VALUES ' + data)
+                self.db.commit()
 
-        if post['References Cited']['Other References']:
-            data = ''
-            for item in post['References Cited']['Other References']:
-                data = ''.join([data, '("' + post['United States Patent'] + '", "' + MySQLdb.escape_string(item) + '")'])
-            data = data.replace(')(', '), (')
+            if post['References Cited']['Other References']:
+                data = ''
+                for item in post['References Cited']['Other References']:
+                    data = ''.join([data, '("' + post['United States Patent'] + '", "' + MySQLdb.escape_string(item) + '")'])
+                data = data.replace(')(', '), (')
 
-            cursor.execute('INSERT INTO Other_References (United_States_Patent, data) VALUES ' + data)
-            self.db.commit()
+                cursor.execute('INSERT INTO Other_References (United_States_Patent, data) VALUES ' + data)
+                self.db.commit()

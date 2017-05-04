@@ -76,7 +76,7 @@ class Patft(scrapy.Spider):
                 'United States Patent': response.xpath('//b[text()="United States Patent "]/../following-sibling::td/b/text()').extract_first(),
                 'Date': response.xpath('//table[2]//tr[2]/td[2]/b/text()').extract_first().strip(),
                 'Current U.S. Class': response.xpath('//b[text()="Current U.S. Class:"]/../following-sibling::td/b/text()').extract_first() + response.xpath('//b[text()="Current U.S. Class:"]/../following-sibling::td/text()').extract_first(),
-                'Current International Class': response.xpath('//b[text()="Current International Class: "]/../following-sibling::td/text()').extract_first().replace('&nbsp', ' '),
+                'Current International Class': response.xpath('//b[text()="Current International Class: "]/../following-sibling::td/text()').extract_first().replace('&nbsp', ' ') or 'None',
                 'Related U.S. Patent Documents': related_us,
                 'References Cited': reference,
                 })
