@@ -9,6 +9,11 @@ import scrapy
 
 
 class PatftItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    date = scrapy.Field()
+    UnitedStatesPatent = scrapy.Field()
+    CurrentUSClass = scrapy.Field()
+    CurrentInternationalClass = scrapy.Field()
+    RelatedUSPatentDocuments = scrapy.Field()
+    USPatentDocuments = scrapy.Field()
+    ForeignPatentDocuments = scrapy.Field()
+    OtherReferences = scrapy.Field()
