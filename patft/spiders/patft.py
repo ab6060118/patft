@@ -15,7 +15,7 @@ class Patft(scrapy.Spider):
 
     def get_total(self, response):
         self.total = response.xpath('/html/body/i/strong[3]/text()').extract_first()
-        self.total = 3
+        #self.total = 3
         for i in range(1, int(self.total) + 1):
             url = 'http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO2&Sect2=HITOFF&p=1&u=%2Fnetahtml%2FPTO%2Fsearch-bool.html&r=' + str(i) + '&f=G&l=50&co1=AND&d=PTXT&s1=taiwan&OS=taiwan&RS=taiwan'
             yield scrapy.Request(url=url, callback=self.parse)
@@ -75,7 +75,7 @@ class Patft(scrapy.Spider):
         Current_US_Class =  response.xpath('//b[text()="Current International Class: "]/../following-sibling::td/text()') or 'None'
         if Current_US_Class != 'None':
             Current_US_Class = Current_US_Class.extract_first().replace('&nbsp', ' ')
-        yield self.DB.write({
+        self.DB.write({
                 'United States Patent': response.xpath('//b[text()="United States Patent "]/../following-sibling::td/b/text()').extract_first(),
                 'Date': response.xpath('//table[2]//tr[2]/td[2]/b/text()').extract_first().strip(),
                 'Current U.S. Class': response.xpath('//b[text()="Current U.S. Class:"]/../following-sibling::td/b/text()').extract_first() + response.xpath('//b[text()="Current U.S. Class:"]/../following-sibling::td/text()').extract_first(),

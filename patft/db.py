@@ -10,7 +10,7 @@ class DB():
         cursor.execute("USE patft")
 
         cursor.execute("DROP TABLE IF EXISTS post")
-        cursor.execute("CREATE TABLE IF NOT EXISTS post (United_States_Patent varchar(20), Date varchar(30), Current_US_Class varchar(255), Current_International_Class text)")
+        cursor.execute("CREATE TABLE IF NOT EXISTS post (United_States_Patent varchar(20), Date varchar(30), Current_US_Class text, Current_International_Class text)")
 
         cursor.execute("DROP TABLE IF EXISTS Related_US_Patent_Documents")
         cursor.execute("CREATE TABLE IF NOT EXISTS Related_US_Patent_Documents (United_States_Patent varchar(20), Application_Number varchar(30), Filing_Date varchar(30))")
