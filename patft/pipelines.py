@@ -24,23 +24,15 @@ class InsertPipeLine(object):
     def open_spider(self, spider):
         self.db = MySQLdb.connect(host="localhost", user="root", passwd="user")
         cursor = self.db.cursor()
-        cursor.execute("CREATE DATABASE IF NOT EXISTS patft")
+        cursor.execute("DROP DATABASE patft")
+        cursor.execute("CREATE DATABASE patft")
         cursor.execute("USE patft")
 
-        cursor.execute("DROP TABLE IF EXISTS post")
-        cursor.execute("CREATE TABLE IF NOT EXISTS post (United_States_Patent varchar(20), Date varchar(30), Current_US_Class text, Current_International_Class text)")
-
-        cursor.execute("DROP TABLE IF EXISTS Related_US_Patent_Documents")
-        cursor.execute("CREATE TABLE IF NOT EXISTS Related_US_Patent_Documents (United_States_Patent varchar(20), Application_Number varchar(30), Filing_Date varchar(30))")
-
-        cursor.execute("DROP TABLE IF EXISTS US_Patent_Documents")
-        cursor.execute("CREATE TABLE IF NOT EXISTS US_Patent_Documents (United_States_Patent varchar(20), first varchar(30), second varchar(30), third varchar(30))")
-
-        cursor.execute("DROP TABLE IF EXISTS Foreign_Patent_Documents")
-        cursor.execute("CREATE TABLE IF NOT EXISTS Foreign_Patent_Documents (United_States_Patent varchar(20), first varchar(30), second varchar(30), third varchar(30))")
-
-        cursor.execute("DROP TABLE IF EXISTS Other_References")
-        cursor.execute("CREATE TABLE IF NOT EXISTS Other_References (United_States_Patent varchar(20), data text)")
+        cursor.execute("CREATE TABLE post (United_States_Patent varchar(20), Date varchar(255), Current_US_Class text, Current_International_Class text)")
+        cursor.execute("CREATE TABLE Related_US_Patent_Documents (United_States_Patent varchar(20), Application_Number varchar(255), Filing_Date varchar(255))")
+        cursor.execute("CREATE TABLE US_Patent_Documents (United_States_Patent varchar(20), first varchar(255), second varchar(255), third varchar(255))")
+        cursor.execute("CREATE TABLE Foreign_Patent_Documents (United_States_Patent varchar(20), first varchar(255), second varchar(255), third varchar(255))")
+        cursor.execute("CREATE TABLE Other_References (United_States_Patent varchar(20), data text)")
 
     def process_item(self, item, spider):
         cursor = self.db.cursor()
