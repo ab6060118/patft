@@ -15,7 +15,7 @@ SPIDER_MODULES = ['patft.spiders']
 NEWSPIDER_MODULE = 'patft.spiders'
 
 ITEM_PIPELINES = {
-    'patft.pipelines.PatftPipeline': 100,
+    #  'patft.pipelines.PatftPipeline': 100,
     'patft.pipelines.InsertPipeLine': 200,
 }
 
@@ -27,8 +27,10 @@ ITEM_PIPELINES = {
 ROBOTSTXT_OBEY=False
 DOWNLOAD_TIMEOUT=900
 
+LOG_LEVEL='INFO'
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 1
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -58,9 +60,9 @@ CONCURRENT_REQUESTS = 1
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'patft.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+  'patft.middlewares.RandomUserAgentMiddlware': 543,
+}
 
 # Enable or disable extensions
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html

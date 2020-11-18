@@ -7,13 +7,10 @@
 
 import scrapy
 
-
 class PatftItem(scrapy.Item):
+    title = scrapy.Field()
+    description = scrapy.Field()
+    claim = scrapy.Field()
     date = scrapy.Field()
+    abstract = scrapy.Field()
     UnitedStatesPatent = scrapy.Field()
-    CurrentUSClass = scrapy.Field()
-    CurrentInternationalClass = scrapy.Field()
-    RelatedUSPatentDocuments = scrapy.Field()
-    USPatentDocuments = scrapy.Field()
-    ForeignPatentDocuments = scrapy.Field()
-    OtherReferences = scrapy.Field()
